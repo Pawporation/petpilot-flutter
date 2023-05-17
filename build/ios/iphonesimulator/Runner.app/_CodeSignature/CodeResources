@@ -18,7 +18,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		aej8GVL1QQCJMujnGT7GV56/JFg=
+		yCzOEDqfckAmgDZvdpdqt+H2G8g=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		VShvHSOuk5SqqY/hTS8G+A7zr+g=
+		E5yupG/o9q2A+qm5hBkBNRjJVd4=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,15 +54,15 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		aTgFzYaX1RQTZ1xqOCTX/a6y3kg=
+		7qotdg4i/dJk9D83lb6vRcHUpRo=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
-		BOBZtVCKogwuSluqb0miwcmwMmY=
+		+CmG0nEZBgbooV/lg9RGo8NWXag=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
-		oG5/OGn+vw7vp/nu5DUDoZJ4nFc=
+		5WbB0dQ3+tqgXjRPxrFOjq8tuCE=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NOTICES.Z</key>
 		<data>
-		VB8Dttzwsjh2PlaYIOq39lCtM9o=
+		OZtEQexxSnqZ332pOwmeYk7Z8Lk=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
@@ -82,11 +82,15 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		VTfXvhXH0TBmzD8gCQ6CaMuRqQo=
+		uBWf2GxGpx1z9Dx3Ycph5Q9lyeY=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
 		P7bb/oR3EhwqCIH1M6LyTuBIWYU=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/packages/flutter_map/lib/assets/flutter_map_logo.png</key>
+		<data>
+		kUCCgXRmQ7Ql3lxXrdQuoudq1L8=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/shaders/ink_sparkle.frag</key>
 		<data>
@@ -216,7 +220,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			w8ZPbdM7xeQzc8xlJl5pvIvWzX6zuTP9EF1UQNpn0vk=
+			ezFUi1mr98j24lT3iEvACXGK71E/uFpdROBBx4gVqyo=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
@@ -265,7 +269,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Fs8c1arI2+JoYgaQUmj5DfTg3mHeQObEu0Tcis7cJFk=
+			VGnFPbgKjViNAiFULowlzdOo4qhISl16ozPWBDlMDxU=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -279,21 +283,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			e91JlPkEnNHG5pw4Nj8lRYCPLJQb0jVRrRFZav3LQJw=
+			SOwuo8aQwzGEbAdSCOplXS+DoXuwHVy4dtnnIpktB6k=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			nFwFXoxik7nUz3ocXKA7ilNzgyDD8BvjtuMmn6MuJrY=
+			17trEiYivj3cUe9JTAIEHJwT3jlpnq5Lf0h+D5Avbco=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Sps95+7JukayebvM0TLjL1LW1VXXndpKp/O8tOm9ZR8=
+			dmvOavY8AMGMzpeAZFd/PyAIgDpo14SE2KNuyHPJQiY=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
@@ -307,7 +311,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			4PYeqQdNPbZ/ev3bV41pKJqkRybMiZfqKtOtxp7xBX4=
+			j/hu81jYj6xdHnwGJrYQ+Tp9UnjjByBE/dPxZzizF1w=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
@@ -328,7 +332,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			uLOse2oFd56Nk07E9fJyUfbIyK2C05u5biPp8hEldO8=
+			5hfiC1XFKZJa4mjrKd6UJxLJw+fO0wa0U8WoSUcEgl4=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -336,6 +340,13 @@
 			<key>hash2</key>
 			<data>
 			x6NX+tjyECiQtyzbbjyY8U2zoZ7GDbJtE+T+k/dzgI0=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/packages/flutter_map/lib/assets/flutter_map_logo.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			YFGuQvtQWTGoM+WPkgmp+WZppNDks/BvbYLN4SoOBAE=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/shaders/ink_sparkle.frag</key>
