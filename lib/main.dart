@@ -1,72 +1,100 @@
 import 'package:flutter/material.dart';
-import 'explore_page.dart';
-import 'profile_page.dart';
+// import 'pages/profile_page.dart';
+import 'pages/login_page.dart';
 
 const themeColor = Color(0xFF76c893);
 
+
 void main() {
-  runApp(const MyApp());
+  runApp(const PetPilotApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class PetPilotApp extends StatelessWidget {
+  const PetPilotApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
-      home: MyHomePage(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoginPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+// void main() {
+//   runApp(const PetPilotApp());
+// }
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+// class PetPilotApp extends StatelessWidget {
+//   const PetPilotApp({Key? key}) : super(key: key);
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       home: LoginPage(),
+//     );
+//   }
+// }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+// class Main extends StatefulWidget {
+//   final VoidCallback logoutCallback;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: const [
-          ExplorePage(),
-          ProfilePage(),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: themeColor,
-        onTap: _onItemTapped,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        backgroundColor: themeColor,
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
+//   const Main({Key? key, required this.logoutCallback}) : super(key: key);
+
+//   @override
+//   State<Main> createState() => _Main();
+// }
+
+// class _Main extends State<Main> {
+//   int _selectedIndex = 0;
+
+//   void _onItemTapped(int index) {
+//     setState(() {
+//       _selectedIndex = index;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: IndexedStack(
+//         index: _selectedIndex,
+//         children: const [
+//           ExplorePage(),
+//           ProfilePage(),
+//         ],
+//       ),
+//       bottomNavigationBar: BottomNavigationBar(
+//         items: const <BottomNavigationBarItem>[
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.search),
+//             label: 'Explore',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.person),
+//             label: 'Profile',
+//           ),
+//         ],
+//         currentIndex: _selectedIndex,
+//         selectedItemColor: themeColor,
+//         onTap: _onItemTapped,
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {},
+//         tooltip: 'Increment',
+//         backgroundColor: themeColor,
+//         child: const Icon(Icons.add),
+//       ),
+//       appBar: AppBar(
+//         backgroundColor: themeColor,
+//         actions: [
+//           IconButton(
+//             onPressed: widget.logoutCallback,
+//             icon: const Icon(Icons.logout),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
