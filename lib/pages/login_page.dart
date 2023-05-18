@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:petpilot/components/my_button.dart';
 import 'package:petpilot/components/my_textfield.dart';
 import 'package:petpilot/components/square_tile.dart';
-import 'package:petpilot/pages/explore_page.dart';
+import 'package:petpilot/main.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -12,7 +12,12 @@ class LoginPage extends StatelessWidget {
   final passwordController = TextEditingController();
 
   // sign user in method
-  void signUserIn() {}
+  void signUserIn(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Main()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +70,7 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 10),
 
               // sign in button
-              MyButton(onTap: signUserIn),
+              MyButton(onTap: () => signUserIn(context)),
 
               const SizedBox(height: 15),
 
@@ -117,12 +122,7 @@ class LoginPage extends StatelessWidget {
 
               // skip for now
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ExplorePage()),
-                  );
-                },
+                onTap: () => signUserIn(context),
                 child: const Text(
                   'Skip for now',
                   style: TextStyle(
@@ -138,6 +138,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
 
 
 

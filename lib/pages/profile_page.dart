@@ -7,7 +7,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.deepPurple, // Blank screen color
+        color: Colors.greenAccent, // Blank screen color
       ),
     );
   }
