@@ -2,22 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:petpilot/components/my_button.dart';
 import 'package:petpilot/components/my_textfield.dart';
 import 'package:petpilot/components/square_tile.dart';
-import 'package:petpilot/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   // text editing controllers
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   // sign user in method
-  void signUserIn(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const Main()),
+  void signUserIn(BuildContext context) async {
+    // show a loading screen while we sign in.
+    showDialog(context: context, builder: (context) {
+      return const Center(
+        child: CircularProgressIndicator()
+      );
+    });
+
+    // try signing in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, 
+      password: passwordController.text);
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      String errorMsg = '';
+
+      if (e.code == 'user-not-found') {
+        errorMsg = 'Did not find user with this email.';
+      } else if (e.code == 'wrong-password') {
+        errorMsg = 'Wrong password.';
+      }
+
+      displayErrorMessage(errorMsg);
+    }
+  }
+
+  void displayErrorMessage(String errorMsg) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(errorMsg),
+        );
+      },
     );
   }
+
 
   @override
   Widget build(BuildContext context) {

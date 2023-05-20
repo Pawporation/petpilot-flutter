@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:petpilot/utils/auth_util.dart';
 import 'pages/explore_page.dart';
 import 'pages/profile_page.dart';
-import 'pages/login_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:petpilot/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 const themeColor = Color(0xFF76c893);
 
+void signUserOut() {
+  FirebaseAuth.instance.signOut();
+}
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const PetPilotApp());
 }
 
@@ -15,9 +26,9 @@ class PetPilotApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: AuthUtil(),
     );
   }
 }
@@ -74,7 +85,7 @@ class _Main extends State<Main> {
         backgroundColor: themeColor,
         actions: const [
           IconButton(
-            onPressed: null,
+            onPressed: signUserOut,
             icon: Icon(Icons.logout),
           ),
         ],
