@@ -12,7 +12,6 @@ void signUserOut() {
   FirebaseAuth.instance.signOut();
 }
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

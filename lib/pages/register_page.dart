@@ -5,21 +5,21 @@ import 'package:petpilot/components/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:petpilot/main.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   // sign user in method
-  void signUserIn(BuildContext context) async {
+  void registerUser(BuildContext context) async {
     // show a loading screen while we sign in.
     showDialog(context: context, builder: (context) {
       return const Center(
@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
 
     // try signing in
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, 
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, 
       password: passwordController.text);
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // welcome back, you've been missed!
                 Text(
-                  'Welcome Back!',
+                  'Join the Pack!',
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 16,
@@ -108,24 +108,8 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 10),
 
-                // forgot password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 10),
-
-                // sign in button
-                MyButton(onTap: () => signUserIn(context), buttonText: 'Sign In'),
+                // sign up button
+                MyButton(onTap: () => registerUser(context), buttonText: 'Sign Up',),
 
                 const SizedBox(height: 15),
 
@@ -175,19 +159,18 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 15),
 
-                // Register here
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Not a member?',
+                      'Already a member?',
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: const Text(
-                        'Register Here',
+                        'Login Here',
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
@@ -196,18 +179,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 )
-
-                // // skip for now
-                // GestureDetector(
-                //   onTap: skipUserSignIn,
-                //   child: const Text(
-                //     'Skip for now',
-                //     style: TextStyle(
-                //       color: Colors.blue,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),
