@@ -5,6 +5,8 @@ import 'package:petpilot/components/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:petpilot/main.dart';
 
+import '../services/auth_service.dart';
+
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
   const RegisterPage({super.key, required this.onTap});
@@ -144,16 +146,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 15),
 
                 // google + apple sign in buttons
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google button
-                    SquareTile(imagePath: 'lib/images/google.png'),
+                    SquareTile(imagePath: 'lib/images/google.png', onTap: () => AuthService().signInWithGoogle(),),
 
-                    SizedBox(width: 25),
+                    const SizedBox(width: 25),
 
                     // apple button
-                    SquareTile(imagePath: 'lib/images/apple.png')
+                    SquareTile(imagePath: 'lib/images/apple.png', onTap: () => {},)
                   ],
                 ),
 
