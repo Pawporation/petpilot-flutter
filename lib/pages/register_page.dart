@@ -155,7 +155,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(width: 25),
 
                     // apple button
-                    SquareTile(imagePath: 'lib/images/apple.png', onTap: () => {},)
+                    SquareTile(imagePath: 'lib/images/apple.png', onTap: () => {},),
+
+                    const SizedBox(width: 25),
+
+                    // facebook button
+                    SquareTile(imagePath: 'lib/images/facebook.png', onTap: () => AuthService().signInWithFacebook(),)
                   ],
                 ),
 

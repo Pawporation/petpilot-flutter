@@ -11,12 +11,19 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>fb775648337275762</string>
 				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
 				<string>com.googleusercontent.apps.770391039672-ltm4lsalu0ro8bd6mioq14go9bsspi5v</string>
 			</array>
 		</dict>
 	</array>
 	<!-- End of the Google Sign-in Section -->
+	<key>FacebookAppID</key>
+	<string>775648337275762</string>
+	<key>FacebookClientToken</key>
+	<string>43f5f518e5106665c9e3727adbf7349d</string>
+	<key>FacebookDisplayName</key>
+	<string>PetPilot</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
