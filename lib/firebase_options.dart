@@ -67,6 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '770391039672',
     projectId: 'petpilot-379703',
     storageBucket: 'petpilot-379703.appspot.com',
+    androidClientId: '770391039672-uu9ubapf1ejs0gi65sjlmlrqgrvsk6b3.apps.googleusercontent.com',
     iosClientId: '770391039672-ltm4lsalu0ro8bd6mioq14go9bsspi5v.apps.googleusercontent.com',
     iosBundleId: 'com.pawporation.petpilot',
   );
@@ -77,6 +78,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '770391039672',
     projectId: 'petpilot-379703',
     storageBucket: 'petpilot-379703.appspot.com',
+    androidClientId: '770391039672-uu9ubapf1ejs0gi65sjlmlrqgrvsk6b3.apps.googleusercontent.com',
     iosClientId: '770391039672-co8ds04cgq8ikpmqffjt8gdklanjrqlg.apps.googleusercontent.com',
     iosBundleId: 'com.pawporation.petpilot.RunnerTests',
   );

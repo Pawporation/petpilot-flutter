@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:petpilot/db/firestore.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({Key? key}) : super(key: key);
@@ -13,14 +15,40 @@ class ExplorePage extends StatefulWidget {
 class ExplorePageState extends State<ExplorePage> {
   late MapController _mapController;
   bool _isLoading = true;
+  List locations = List.empty(growable: true);
   LatLng _currentLocation = LatLng(37.319250, -121.929420);
 
   @override
   void initState() {
     super.initState();
     _determinePosition();
+    _getNearbyLocations();
     _mapController = MapController();
   }
+
+  Future<void> _getNearbyLocations() async {
+    locations = await Firestore().getLocationsFromLocation(_currentLocation);
+    setState(() {});
+  }
+
+  List<Marker> _buildMarkers() {
+  return locations.map((location) {
+    GeoPoint geoPoint = location['position']['geopoint'];
+    double latitude = geoPoint.latitude;
+    double longitude = geoPoint.longitude;
+    LatLng point = LatLng(latitude, longitude);
+    
+    return Marker(
+      point: point,
+      builder: (ctx) => const Icon(
+        Icons.location_on,
+        color: Colors.black,
+      ),
+    );
+  }).toList();
+}
+
+
 
   // Determine the current position of the device.
   //
@@ -89,10 +117,11 @@ class ExplorePageState extends State<ExplorePage> {
                 },
               ),
               MarkerLayer(
-                markers: [
-                  Marker(
-                      point: _currentLocation, builder: (ctx) => _PulseAnimation())
-                ],
+                markers: _buildMarkers(),
+                // markers: [
+                //   Marker(
+                //       point: _currentLocation, builder: (ctx) => _PulseAnimation()),
+                // ],
               )
             ],
           );

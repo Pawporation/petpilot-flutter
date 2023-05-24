@@ -5,6 +5,7 @@ import 'pages/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:petpilot/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:petpilot/db/firestore.dart';
 
 const themeColor = Color(0xFF76c893);
 
@@ -75,7 +76,7 @@ class _Main extends State<Main> {
         onTap: _onItemTapped,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: Firestore().addToLocationsDB,
         tooltip: 'Increment',
         backgroundColor: themeColor,
         child: const Icon(Icons.add),
