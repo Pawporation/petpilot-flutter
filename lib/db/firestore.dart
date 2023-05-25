@@ -1,7 +1,7 @@
 
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Firestore {
 
@@ -53,7 +53,7 @@ class Firestore {
 
       await _firestore
         .collection('locations')
-        .add({'id': '8', 'name': 'Doggie Boutique', 'position': myLocation7.data, 'type': 'store'});
+        .add({'id': '8', 'name': 'Doggie Boutique', 'position': myLocation8.data, 'type': 'store'});
 
     } catch (e) {
       // TODO: handle error exception.
@@ -70,7 +70,6 @@ class Firestore {
     List<DocumentSnapshot> snapshots = await geo.collection(collectionRef: collectionReference)
         .within(center: center, radius: radius, field: field)
         .first;
-
     return snapshots.map((doc) => doc.data() as Map<String, dynamic>).toList();
   }
 }
