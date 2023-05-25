@@ -70,6 +70,8 @@ class ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
+    String selectAllText = selectedFilters.length == filters.length ? 'Deselect All' : 'Select All';
+
     return _isLoading
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
@@ -86,14 +88,14 @@ class ExplorePageState extends State<ExplorePage> {
                   ),
                   Positioned(
                     top: 16.0,
-                    left: 25.0,
-                    right: 25.0,
+                    left: 18.0,
+                    right: 18.0,
                     child: CustomSearchBar(searchController: _searchController),
                   ),
                   Positioned(
                     top: 70.0,
-                    left: 16.0,
-                    right: 16.0,
+                    left: 18.0,
+                    right: 18.0,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -108,6 +110,28 @@ class ExplorePageState extends State<ExplorePage> {
                             buttonColor: color,
                           );
                         }).toList(),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 122.0,
+                    left: 22.0,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (selectedFilters.length == filters.length) {
+                            selectedFilters = [];
+                          } else {
+                            selectedFilters = List.from(filters);
+                          }
+                        });
+                      },
+                      child: Text(
+                        selectAllText,
+                        style: const TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
