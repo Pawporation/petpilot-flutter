@@ -3,6 +3,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:petpilot/components/custom_search_bar.dart';
+import 'package:petpilot/components/filter_button.dart';
+import 'package:petpilot/db/firestore.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({Key? key}) : super(key: key);
@@ -18,6 +20,17 @@ class ExplorePageState extends State<ExplorePage> {
   List<Map<String, dynamic>> locations = [];
 
   LatLng _currentLocation = const LatLng(37.319250, -121.929420);
+  List<String> filters = ['restaurant', 'event', 'outdoor', 'medical', 'grooming', 'dogcare', 'store'];
+  List<String> selectedFilters = ['restaurant', 'event', 'outdoor', 'medical', 'grooming', 'dogcare', 'store'];
+  List<Color> filterColors = [
+    Colors.red,
+    Colors.deepPurple,
+    Colors.green,
+    Colors.blue,
+    Colors.pink,
+    Colors.teal,
+    Colors.amber,
+  ];
 
   @override
   void initState() {
@@ -27,12 +40,8 @@ class ExplorePageState extends State<ExplorePage> {
   }
 
   Future<void> _getNearbyLocations() async {
-    final firestore = FirebaseFirestore.instance;
-    final collectionReference = firestore.collection('locations');
-
-    final QuerySnapshot snapshot = await collectionReference.get();
+    locations = await Firestore().getLocationsFromLocation(_currentLocation);
     setState(() {
-      locations = snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
       _isLoading = false;
     });
   }
@@ -46,6 +55,17 @@ class ExplorePageState extends State<ExplorePage> {
     _mapController.animateCamera(
       CameraUpdate.newLatLngZoom(_currentLocation, 15),
     );
+  }
+
+  void _updateSelectedFilter(String filter) {
+    setState(() {
+      final lowerCaseFilter = filter.toLowerCase();
+      if (selectedFilters.contains(lowerCaseFilter)) {
+        selectedFilters.remove(lowerCaseFilter);
+      } else {
+        selectedFilters.add(lowerCaseFilter);
+      }
+    });
   }
 
   @override
@@ -68,7 +88,28 @@ class ExplorePageState extends State<ExplorePage> {
                     top: 16.0,
                     left: 25.0,
                     right: 25.0,
-                    child:CustomSearchBar(searchController: _searchController),
+                    child: CustomSearchBar(searchController: _searchController),
+                  ),
+                  Positioned(
+                    top: 70.0,
+                    left: 16.0,
+                    right: 16.0,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: filters.map((filter) {
+                          int index = filters.indexOf(filter);
+                          Color color = filterColors[index];
+                          return FilterButton(
+                            filter: filter,
+                            isSelected: selectedFilters.contains(filter),
+                            onPressed: () => _updateSelectedFilter(filter),
+                            buttonColor: color,
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
                   Positioned(
                     bottom: 16.0,
@@ -89,41 +130,21 @@ class ExplorePageState extends State<ExplorePage> {
   }
 
   Set<Marker> _buildMarkers() {
-    return locations.map((location) {
+    List<Map<String, dynamic>> filteredLocations = locations
+        .where((location) => selectedFilters.contains(location['type'].toString().toLowerCase()))
+        .toList();
+
+    return filteredLocations.map((location) {
       GeoPoint geoPoint = location['position']['geopoint'];
       double latitude = geoPoint.latitude;
       double longitude = geoPoint.longitude;
       LatLng point = LatLng(latitude, longitude);
 
-      BitmapDescriptor markerIcon;
+      int filterIndex = filters.indexOf(location['type']);
+      Color markerColor = filterColors[filterIndex];
 
-      // Assign different marker colors based on location type
-      switch (location['type']) {
-        case 'restaurant':
-          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
-          break;
-        case 'event':
-          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet);
-          break;
-        case 'outdoor':
-          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
-          break;
-        case 'medical':
-          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
-          break;
-        case 'grooming':
-          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose);
-          break;
-        case 'dogcare':
-          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
-          break;
-        case 'store':
-          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
-          break;
-        default:
-          markerIcon = BitmapDescriptor.defaultMarker;
-          break;
-      }
+      double hue = HSLColor.fromColor(markerColor).hue;
+      BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarkerWithHue(hue);
 
       return Marker(
         markerId: MarkerId(location['name']),
