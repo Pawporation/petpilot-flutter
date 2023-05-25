@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:petpilot/components/custom_search_bar.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class ExplorePage extends StatefulWidget {
 
 class ExplorePageState extends State<ExplorePage> {
   late GoogleMapController _mapController;
+  final TextEditingController _searchController = TextEditingController();
   bool _isLoading = true;
   List<Map<String, dynamic>> locations = [];
 
@@ -33,20 +35,18 @@ class ExplorePageState extends State<ExplorePage> {
       locations = snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
       _isLoading = false;
     });
-
-    print(locations.length);
   }
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
+    _mapController.setMapStyle('[{"featureType": "poi","stylers": [{"visibility": "off"}]}]');
   }
 
   void _myLocation() {
     _mapController.animateCamera(
-    CameraUpdate.newLatLngZoom(_currentLocation, 15),
-  );
-}
-
+      CameraUpdate.newLatLngZoom(_currentLocation, 15),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,13 @@ class ExplorePageState extends State<ExplorePage> {
                   ),
                   Positioned(
                     top: 16.0,
-                    right: 16.0,
+                    left: 25.0,
+                    right: 25.0,
+                    child:CustomSearchBar(searchController: _searchController),
+                  ),
+                  Positioned(
+                    bottom: 16.0,
+                    left: 16.0,
                     child: FloatingActionButton(
                       onPressed: _myLocation,
                       tooltip: 'My Location',
@@ -89,10 +95,40 @@ class ExplorePageState extends State<ExplorePage> {
       double longitude = geoPoint.longitude;
       LatLng point = LatLng(latitude, longitude);
 
+      BitmapDescriptor markerIcon;
+
+      // Assign different marker colors based on location type
+      switch (location['type']) {
+        case 'restaurant':
+          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
+          break;
+        case 'event':
+          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet);
+          break;
+        case 'outdoor':
+          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen);
+          break;
+        case 'medical':
+          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue);
+          break;
+        case 'grooming':
+          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose);
+          break;
+        case 'dogcare':
+          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange);
+          break;
+        case 'store':
+          markerIcon = BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow);
+          break;
+        default:
+          markerIcon = BitmapDescriptor.defaultMarker;
+          break;
+      }
+
       return Marker(
         markerId: MarkerId(location['name']),
         position: point,
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+        icon: markerIcon,
       );
     }).toSet();
   }

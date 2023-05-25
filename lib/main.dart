@@ -27,6 +27,7 @@ class PetPilotApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      color: themeColor,
       debugShowCheckedModeBanner: false,
       home: AuthUtil(),
     );
@@ -81,15 +82,15 @@ class _Main extends State<Main> {
         backgroundColor: themeColor,
         child: const Icon(Icons.add),
       ),
-      appBar: AppBar(
-        backgroundColor: themeColor,
-        actions: const [
-          IconButton(
-            onPressed: signUserOut,
-            icon: Icon(Icons.logout),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: themeColor,
+      //   actions: const [
+      //     IconButton(
+      //       onPressed: signUserOut,
+      //       icon: Icon(Icons.logout),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
