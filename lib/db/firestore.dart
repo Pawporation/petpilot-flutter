@@ -10,19 +10,54 @@ class Firestore {
   final _firestore = FirebaseFirestore.instance;
 
   void addToLocationsDB() async {
-    print('hi');
 
     try {
-    GeoFirePoint myLocation = geo.point(latitude: 37.786900, longitude: -122.410010);
-    await _firestore
+      GeoFirePoint myLocation1 = geo.point(latitude: 37.786900, longitude: -122.410010);
+      GeoFirePoint myLocation2 = geo.point(latitude: 37.775871, longitude: -122.406761);
+      GeoFirePoint myLocation3 = geo.point(latitude: 37.777053, longitude: -122.407825);
+      GeoFirePoint myLocation4 = geo.point(latitude: 37.783002, longitude: -122.401652);
+      GeoFirePoint myLocation5 = geo.point(latitude: 37.778679, longitude: -122.406556);
+      GeoFirePoint myLocation6 = geo.point(latitude: 37.777222, longitude: -122.406118);
+      GeoFirePoint myLocation7 = geo.point(latitude: 37.781480, longitude: -122.406582);
+      GeoFirePoint myLocation8 = geo.point(latitude: 37.788259, longitude: -122.401869);
+
+      await _firestore
+          .collection('locations')
+          .add({'id': '1', 'name': 'Fiddle Fig', 'position': myLocation1.data, 'type': 'restaurant'});
+
+      await _firestore
         .collection('locations')
-        .add({'name': 'Naul Cafe', 'position': myLocation.data});
+        .add({'id': '2', 'name': 'Pet Vet', 'position': myLocation2.data, 'type': 'medical'});
+
+      await _firestore
+        .collection('locations')
+        .add({'id': '3', 'name': 'Zoom Groom', 'position': myLocation3.data, 'type': 'grooming'});
+
+
+      await _firestore
+        .collection('locations')
+        .add({'id': '4', 'name': 'Doggie DayCare', 'position': myLocation4.data, 'type': 'dogcare'});
+
+      await _firestore
+        .collection('locations')
+        .add({'id': '5', 'name': 'Park', 'position': myLocation5.data, 'type': 'outdoor'});
+
+
+      await _firestore
+        .collection('locations')
+        .add({'id': '6', 'name': 'Vista Peak', 'position': myLocation6.data, 'type': 'outdoor'});
+
+      await _firestore
+        .collection('locations')
+        .add({'id': '7', 'name': 'Doodle Romp', 'position': myLocation7.data, 'type': 'event'});
+
+      await _firestore
+        .collection('locations')
+        .add({'id': '8', 'name': 'Doggie Boutique', 'position': myLocation7.data, 'type': 'store'});
 
     } catch (e) {
-      print(e);
+      // TODO: handle error exception.
     }
-    
-    print('done');
   }
 
 
@@ -36,8 +71,6 @@ class Firestore {
         .within(center: center, radius: radius, field: field)
         .first;
 
-    print(snapshots.length);
     return snapshots.map((doc) => doc.data() as Map<String, dynamic>).toList();
   }
-
 }
