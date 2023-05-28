@@ -3,8 +3,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:petpilot/components/custom_search_bar.dart';
+import 'package:petpilot/components/custom_card.dart';
 import 'package:petpilot/components/filter_button.dart';
 import 'package:petpilot/db/firestore.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({Key? key}) : super(key: key);
@@ -20,8 +22,24 @@ class ExplorePageState extends State<ExplorePage> {
   List<Map<String, dynamic>> locations = [];
 
   LatLng _currentLocation = const LatLng(37.319250, -121.929420);
-  List<String> filters = ['restaurant', 'event', 'outdoor', 'medical', 'grooming', 'dogcare', 'store'];
-  List<String> selectedFilters = ['restaurant', 'event', 'outdoor', 'medical', 'grooming', 'dogcare', 'store'];
+  List<String> filters = [
+    'restaurant',
+    'event',
+    'outdoor',
+    'medical',
+    'grooming',
+    'dogcare',
+    'store',
+  ];
+  List<String> selectedFilters = [
+    'restaurant',
+    'event',
+    'outdoor',
+    'medical',
+    'grooming',
+    'dogcare',
+    'store',
+  ];
   List<Color> filterColors = [
     Colors.red,
     Colors.deepPurple,
@@ -32,11 +50,17 @@ class ExplorePageState extends State<ExplorePage> {
     Colors.amber,
   ];
 
+  final ItemScrollController _itemScrollController = ItemScrollController();
+  double cardScrollWidth = 300.0;
+
+  LatLng? selectedMarkerPosition;
+  bool showCardView = false;
+
   @override
   void initState() {
-    super.initState();
     _determinePosition();
     _getNearbyLocations();
+    super.initState();
   }
 
   Future<void> _getNearbyLocations() async {
@@ -67,6 +91,24 @@ class ExplorePageState extends State<ExplorePage> {
       }
     });
   }
+
+  void _scrollToMarker(LatLng position) async {
+    await Future.delayed(const Duration(milliseconds: 100)); // Add a small delay
+
+    List<Map<String, dynamic>> filteredLocations = locations
+        .where((location) => selectedFilters.contains(location['type'].toString().toLowerCase()))
+        .toList();
+
+    int markerIndex = filteredLocations.indexWhere((location) {
+      GeoPoint geoPoint = location['position']['geopoint'];
+      double latitude = geoPoint.latitude;
+      double longitude = geoPoint.longitude;
+      LatLng markerPosition = LatLng(latitude, longitude);
+      return markerPosition == position;
+    });
+    _itemScrollController.jumpTo(index: markerIndex);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +177,38 @@ class ExplorePageState extends State<ExplorePage> {
                       ),
                     ),
                   ),
+                  if (showCardView)
+                    Positioned(
+                      bottom: 16.0,
+                      left: 16.0,
+                      right: 16.0,
+                      child: GestureDetector(
+                        onVerticalDragStart: (_) {
+                          setState(() {
+                            showCardView = false;
+                            selectedMarkerPosition = null;
+                          });
+                        },
+                        child: SizedBox(
+                          height: 200.0,
+                          width: 500.0,
+                          // child: _scrollablePositionedList
+                          child: ScrollablePositionedList.builder(
+                            itemScrollController: _itemScrollController,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: locations.length,
+                            itemBuilder: (context, index) {
+                              Map<String, dynamic> location = locations[index];
+                              return Container(
+                                width: cardScrollWidth,
+                                margin: const EdgeInsets.only(right: 8.0),
+                                child: CustomCard(name: location['name'].toString()),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
                   Positioned(
                     bottom: 16.0,
                     left: 16.0,
@@ -174,6 +248,13 @@ class ExplorePageState extends State<ExplorePage> {
         markerId: MarkerId(location['name']),
         position: point,
         icon: markerIcon,
+        onTap: () {
+          setState(() {
+            showCardView = true;
+            selectedMarkerPosition = point;
+          });
+          _scrollToMarker(point);
+        },
       );
     }).toSet();
   }
