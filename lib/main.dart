@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:petpilot/pages/post_content_page.dart';
 import 'package:petpilot/utils/auth_util.dart';
 import 'pages/explore_page.dart';
 import 'pages/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:petpilot/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:petpilot/db/firestore.dart';
 
 const themeColor = Color(0xFF76c893);
 
@@ -22,7 +22,7 @@ void main() async {
 }
 
 class PetPilotApp extends StatelessWidget {
-  const PetPilotApp({super.key});
+  const PetPilotApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +35,15 @@ class PetPilotApp extends StatelessWidget {
 }
 
 class Main extends StatefulWidget {
-
   const Main({Key? key}) : super(key: key);
 
   @override
-  State<Main> createState() => _Main();
+  State<Main> createState() => _MainState();
 }
 
-class _Main extends State<Main> {
+class _MainState extends State<Main> {
   int _selectedIndex = 0;
+  bool _overlayVisible = false; // Track the visibility of the overlay
 
   void _onItemTapped(int index) {
     setState(() {
@@ -51,14 +51,39 @@ class _Main extends State<Main> {
     });
   }
 
+  void _showOverlay() {
+    setState(() {
+      _overlayVisible = true;
+    });
+  }
+
+  void _hideOverlay() {
+    setState(() {
+      _overlayVisible = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: const [
-          ExplorePage(),
-          ProfilePage(),
+      body: Stack(
+        children: <Widget>[
+          IndexedStack(
+            index: _selectedIndex,
+            children: const [
+              ExplorePage(),
+              ProfilePage(),
+            ],
+          ),
+          if (_overlayVisible)
+            GestureDetector(
+              onTap: _hideOverlay,
+              child: Container(
+                color: Colors.black54.withOpacity(0.5),
+              ),
+            ),
+          if (_overlayVisible)
+            const PostContentPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -77,20 +102,11 @@ class _Main extends State<Main> {
         onTap: _onItemTapped,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: Firestore().addToLocationsDB,
+        onPressed: _showOverlay,
         tooltip: 'Increment',
         backgroundColor: themeColor,
         child: const Icon(Icons.add),
       ),
-      // appBar: AppBar(
-      //   backgroundColor: themeColor,
-      //   actions: const [
-      //     IconButton(
-      //       onPressed: signUserOut,
-      //       icon: Icon(Icons.logout),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
