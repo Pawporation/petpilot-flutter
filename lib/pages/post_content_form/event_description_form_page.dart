@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class EventDetailsFormPage extends StatelessWidget {
-  const EventDetailsFormPage({Key? key}) : super(key: key);
+class EventDescriptionFormPage extends StatelessWidget {
+  const EventDescriptionFormPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text('EventDetails'),
+        const Text('EventDescription'),
         // ElevatedButton(
         //   onPressed: () {
         //     // Go back to Page 3

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:petpilot/models/place_type.dart';
 
 class PlaceTypeFormPage extends StatefulWidget {
-  const PlaceTypeFormPage({Key? key}) : super(key: key);
+  final Function(PlaceType?) onPlaceTypeSelected;
+
+  const PlaceTypeFormPage({Key? key, required this.onPlaceTypeSelected}) : super(key: key);
 
   @override
   PlaceTypeFormPageState createState() => PlaceTypeFormPageState();
 }
 
 class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
-  late int placeTypeSelectedOption = -1;
+  PlaceType? _placeType;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +44,9 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  placeTypeSelectedOption = 0;
+                  _placeType = PlaceType.event;
                 });
+                widget.onPlaceTypeSelected(_placeType);
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -50,7 +54,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.selected)) {
                       return const Color(0xFF76c893);
-                    } else if (placeTypeSelectedOption == 0) {
+                    } else if (_placeType == PlaceType.event) {
                       return const Color(0xFF76c893);
                     } else {
                       return Colors.grey;
@@ -63,8 +67,9 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  placeTypeSelectedOption = 1;
+                  _placeType = PlaceType.restaurant;
                 });
+                widget.onPlaceTypeSelected(_placeType);
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -72,7 +77,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.selected)) {
                       return const Color(0xFF76c893);
-                    } else if (placeTypeSelectedOption == 1) {
+                    } else if (_placeType == PlaceType.restaurant) {
                       return const Color(0xFF76c893);
                     } else {
                       return Colors.grey;
@@ -85,8 +90,9 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  placeTypeSelectedOption = 2;
+                  _placeType = PlaceType.outdoor;
                 });
+                widget.onPlaceTypeSelected(_placeType);
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -94,7 +100,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.selected)) {
                       return const Color(0xFF76c893);
-                    } else if (placeTypeSelectedOption == 2) {
+                    } else if (_placeType == PlaceType.outdoor) {
                       return const Color(0xFF76c893);
                     } else {
                       return Colors.grey;
@@ -107,8 +113,9 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  placeTypeSelectedOption = 3;
+                  _placeType = PlaceType.medical;
                 });
+                widget.onPlaceTypeSelected(_placeType);
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -116,7 +123,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.selected)) {
                       return const Color(0xFF76c893);
-                    } else if (placeTypeSelectedOption == 3) {
+                    } else if (_placeType == PlaceType.medical) {
                       return const Color(0xFF76c893);
                     } else {
                       return Colors.grey;
@@ -129,8 +136,9 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  placeTypeSelectedOption = 4;
+                  _placeType = PlaceType.grooming;
                 });
+                widget.onPlaceTypeSelected(_placeType);
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -138,7 +146,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.selected)) {
                       return const Color(0xFF76c893);
-                    } else if (placeTypeSelectedOption == 4) {
+                    } else if (_placeType == PlaceType.grooming) {
                       return const Color(0xFF76c893);
                     } else {
                       return Colors.grey;
@@ -151,8 +159,9 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  placeTypeSelectedOption = 5;
+                  _placeType = PlaceType.dogcare;
                 });
+                widget.onPlaceTypeSelected(_placeType);
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -160,7 +169,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.selected)) {
                       return const Color(0xFF76c893);
-                    } else if (placeTypeSelectedOption == 5) {
+                    } else if (_placeType == PlaceType.dogcare) {
                       return const Color(0xFF76c893);
                     } else {
                       return Colors.grey;
@@ -173,8 +182,9 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  placeTypeSelectedOption = 6;
+                  _placeType = PlaceType.store;
                 });
+                widget.onPlaceTypeSelected(_placeType);
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -182,7 +192,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.selected)) {
                       return const Color(0xFF76c893);
-                    } else if (placeTypeSelectedOption == 6) {
+                    } else if (_placeType == PlaceType.store) {
                       return const Color(0xFF76c893);
                     } else {
                       return Colors.grey;
