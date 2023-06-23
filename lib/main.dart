@@ -26,10 +26,18 @@ class PetPilotApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      color: themeColor,
+    return MaterialApp(
+      theme: ThemeData(
+        colorScheme: const ColorScheme( 
+          brightness: Brightness.light, 
+          primary: themeColor, onPrimary: Colors.white, 
+          secondary: themeColor, onSecondary: Colors.white, 
+          error: Colors.red, onError: Colors.black, 
+          background: themeColor, onBackground: Colors.white, 
+          surface: themeColor, onSurface: Colors.grey)
+      ),
       debugShowCheckedModeBanner: false,
-      home: AuthUtil(),
+      home: const AuthUtil(),
     );
   }
 }
