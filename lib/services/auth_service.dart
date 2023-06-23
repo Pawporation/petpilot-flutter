@@ -14,7 +14,7 @@ class AuthService {
 
       // TODO store user data when registering users.
       return await FirebaseAuth.instance.signInWithCredential(credential);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       // TODO: add error handling
     }
   }

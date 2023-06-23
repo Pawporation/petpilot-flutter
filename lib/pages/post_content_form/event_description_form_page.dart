@@ -5,9 +5,9 @@ class EventDescriptionFormPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
-        const Text('EventDescription'),
+        Text('EventDescription'),
         // ElevatedButton(
         //   onPressed: () {
         //     // Go back to Page 3
