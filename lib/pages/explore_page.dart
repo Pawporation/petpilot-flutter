@@ -22,6 +22,8 @@ class ExplorePageState extends State<ExplorePage> {
   List<Map<String, dynamic>> locations = [];
 
   LatLng _currentLocation = const LatLng(37.319250, -121.929420);
+  LatLng _focusedLocation = const LatLng(37.319250, -121.929420);
+
   List<String> filters = [
     'restaurant',
     'event',
@@ -64,7 +66,7 @@ class ExplorePageState extends State<ExplorePage> {
   }
 
   Future<void> _getNearbyLocations() async {
-    locations = await Firestore().getLocationsFromLocation(_currentLocation);
+    locations = await Firestore().getLocationsFromLocation(_focusedLocation);
     setState(() {
       _isLoading = false;
     });
@@ -76,8 +78,9 @@ class ExplorePageState extends State<ExplorePage> {
   }
 
   void _myLocation() {
+    _focusedLocation = _currentLocation;
     _mapController.animateCamera(
-      CameraUpdate.newLatLngZoom(_currentLocation, 15),
+      CameraUpdate.newLatLngZoom(_focusedLocation, 15),
     );
   }
 
@@ -109,6 +112,16 @@ class ExplorePageState extends State<ExplorePage> {
     _itemScrollController.jumpTo(index: markerIndex);
   }
 
+  void _onLocationSelected(LatLng location) {
+    setState(() {
+      _focusedLocation = location;
+    });
+    _mapController.animateCamera(
+      CameraUpdate.newLatLng(_focusedLocation),
+    );
+    _getNearbyLocations(); // Update nearby locations based on the new location
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -125,14 +138,14 @@ class ExplorePageState extends State<ExplorePage> {
                     myLocationEnabled: true,
                     myLocationButtonEnabled: false,
                     zoomControlsEnabled: false,
-                    initialCameraPosition: CameraPosition(target: _currentLocation, zoom: 15),
+                    initialCameraPosition: CameraPosition(target: _focusedLocation, zoom: 15),
                     markers: _buildMarkers(),
                   ),
                   Positioned(
                     top: 16.0,
                     left: 18.0,
                     right: 18.0,
-                    child: CustomSearchBar(searchController: _searchController),
+                    child: CustomSearchBar(searchController: _searchController, onLocationSelected: _onLocationSelected,),
                   ),
                   Positioned(
                     top: 70.0,
@@ -283,6 +296,7 @@ class ExplorePageState extends State<ExplorePage> {
     final position = await Geolocator.getCurrentPosition();
     setState(() {
       _currentLocation = LatLng(position.latitude, position.longitude);
+      _focusedLocation = _currentLocation;
       _isLoading = false;
     });
   }
