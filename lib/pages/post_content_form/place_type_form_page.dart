@@ -67,7 +67,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  _placeType = PlaceType.restaurant;
+                  _placeType = PlaceType.restaurnt;
                 });
                 widget.onPlaceTypeSelected(_placeType);
               },
@@ -90,7 +90,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  _placeType = PlaceType.restaurant;
+                  _placeType = PlaceType.cafe;
                 });
                 widget.onPlaceTypeSelected(_placeType);
               },
@@ -100,7 +100,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.selected)) {
                       return const Color(0xFF76c893);
-                    } else if (_placeType == PlaceType.restaurant) {
+                    } else if (_placeType == PlaceType.cafe) {
                       return const Color(0xFF76c893);
                     } else {
                       return Colors.grey;
