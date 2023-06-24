@@ -31,10 +31,10 @@ class PetPilotApp extends StatelessWidget {
         colorScheme: const ColorScheme( 
           brightness: Brightness.light, 
           primary: themeColor, onPrimary: Colors.white, 
-          secondary: themeColor, onSecondary: Colors.white, 
+          secondary: Colors.grey, onSecondary: Colors.white, 
           error: Colors.red, onError: Colors.black, 
           background: themeColor, onBackground: Colors.white, 
-          surface: themeColor, onSurface: Colors.grey)
+          surface: Colors.white, onSurface: Colors.grey)
       ),
       debugShowCheckedModeBanner: false,
       home: const AuthUtil(),

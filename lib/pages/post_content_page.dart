@@ -15,6 +15,8 @@ class PostContentPage extends StatefulWidget {
 
 class PostContentPageState extends State<PostContentPage> {
   final PageController _pageController = PageController(initialPage: 0);
+  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _eventLocationController = TextEditingController();
   int _currentPageIndex = 0;
   PlaceType? placeType;
 
@@ -53,8 +55,8 @@ class PostContentPageState extends State<PostContentPage> {
   @override
   Widget build(BuildContext context) {
     var pages = [PlaceTypeFormPage(onPlaceTypeSelected: updatePlaceType), 
-    const LocationFormPage(), const PetFriendlinessFormPage(),
-    const EventDetailsFormPage(), const EventDescriptionFormPage()];
+    LocationFormPage(searchController: _searchController), const PetFriendlinessFormPage(),
+    EventDetailsFormPage(searchController: _eventLocationController,), const EventDescriptionFormPage()];
     var children = placeType == PlaceType.event ? [pages[0], pages[3], pages[4]] : [pages[0], pages[1], pages[2]];
     return Dialog(
       backgroundColor: Colors.transparent,
