@@ -10,10 +10,10 @@ class PetFriendlinessFormPage extends StatefulWidget {
 
 class PetFriendlinessFormPageState extends State<PetFriendlinessFormPage> {
   double petFriendlyRating = 0;
-  late int dogsAllowedInside = 0;
-  late int allowsLargeDogsSelectedOption = 0;
-  late int isQuietSelectedOption = 0;
-  late int hasTreatsSelectedOption = 0;
+  late int dogsAllowedInside = -1;
+  late int allowsLargeDogs = -1;
+  late int hasOutdoorSeating = -1;
+  late int hasTreats = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +46,65 @@ class PetFriendlinessFormPageState extends State<PetFriendlinessFormPage> {
             });
           },
         ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              const Text(
+                'Has Outdoor Seating',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 13,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              const SizedBox(width: 2),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    hasOutdoorSeating = hasOutdoorSeating == 0 ? -1 : 0;
+                  });
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (states) {
+                      if (states.contains(MaterialState.pressed) ||
+                          states.contains(MaterialState.selected) || hasOutdoorSeating == 0) {
+                        return const Color(0xFF76c893);
+                      } else {
+                        return Colors.grey;
+                      }
+                    },
+                  ),
+                  minimumSize: MaterialStateProperty.all(const Size(20, 20))
+                ),
+                child: const Text('Yes'),
+              ),
+              const SizedBox(width: 2),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    hasOutdoorSeating = hasOutdoorSeating == 1 ? -1 : 1;
+                  });
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (states) {
+                      if (states.contains(MaterialState.pressed) ||
+                          states.contains(MaterialState.selected) || hasOutdoorSeating == 1) {
+                        return const Color(0xFF76c893);
+                      } else {
+                        return Colors.grey;
+                      }
+                    },
+                  ),
+                  minimumSize: MaterialStateProperty.all(const Size(20, 20))
+                ),
+                child: const Text('No'),
+              ),
+            ],
+          ),
+        ),
         // Add more form fields or content for Page 3
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -63,16 +122,14 @@ class PetFriendlinessFormPageState extends State<PetFriendlinessFormPage> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    dogsAllowedInside = 0;
+                    dogsAllowedInside = dogsAllowedInside = dogsAllowedInside == 0 ? -1 : 0;
                   });
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (states) {
                       if (states.contains(MaterialState.pressed) ||
-                          states.contains(MaterialState.selected)) {
-                        return const Color(0xFF76c893);
-                      } else if (dogsAllowedInside == 0) {
+                          states.contains(MaterialState.selected) || dogsAllowedInside == 0) {
                         return const Color(0xFF76c893);
                       } else {
                         return Colors.grey;
@@ -87,16 +144,14 @@ class PetFriendlinessFormPageState extends State<PetFriendlinessFormPage> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    dogsAllowedInside = 1;
+                    dogsAllowedInside = dogsAllowedInside = dogsAllowedInside == 1 ? -1 : 1;
                   });
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (states) {
                       if (states.contains(MaterialState.pressed) ||
-                          states.contains(MaterialState.selected)) {
-                        return const Color(0xFF76c893);
-                      } else if (dogsAllowedInside == 1) {
+                          states.contains(MaterialState.selected) || dogsAllowedInside == 1) {
                         return const Color(0xFF76c893);
                       } else {
                         return Colors.grey;
@@ -126,16 +181,14 @@ class PetFriendlinessFormPageState extends State<PetFriendlinessFormPage> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    allowsLargeDogsSelectedOption = 0;
+                    allowsLargeDogs = allowsLargeDogs = allowsLargeDogs == 0 ? -1 : 0;
                   });
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (states) {
                       if (states.contains(MaterialState.pressed) ||
-                          states.contains(MaterialState.selected)) {
-                        return const Color(0xFF76c893);
-                      } else if (allowsLargeDogsSelectedOption == 0) {
+                          states.contains(MaterialState.selected) || allowsLargeDogs == 0) {
                         return const Color(0xFF76c893);
                       } else {
                         return Colors.grey;
@@ -150,79 +203,14 @@ class PetFriendlinessFormPageState extends State<PetFriendlinessFormPage> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    allowsLargeDogsSelectedOption = 1;
+                    allowsLargeDogs = allowsLargeDogs = allowsLargeDogs == 1 ? -1 : 1;
                   });
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (states) {
                       if (states.contains(MaterialState.pressed) ||
-                          states.contains(MaterialState.selected)) {
-                        return const Color(0xFF76c893);
-                      } else if (allowsLargeDogsSelectedOption == 1) {
-                        return const Color(0xFF76c893);
-                      } else {
-                        return Colors.grey;
-                      }
-                    },
-                  ),
-                  minimumSize: MaterialStateProperty.all(const Size(20, 20))
-                ),
-                child: const Text('No'),
-              ),
-            ],
-          ),
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              const Text(
-                'Quiet Space',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 13,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              const SizedBox(width: 2),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    isQuietSelectedOption = 0;
-                  });
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (states) {
-                      if (states.contains(MaterialState.pressed) ||
-                          states.contains(MaterialState.selected)) {
-                        return const Color(0xFF76c893);
-                      } else if (isQuietSelectedOption == 0) {
-                        return const Color(0xFF76c893);
-                      } else {
-                        return Colors.grey;
-                      }
-                    },
-                  ),
-                  minimumSize: MaterialStateProperty.all(const Size(20, 20))
-                ),
-                child: const Text('Yes'),
-              ),
-              const SizedBox(width: 2),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    isQuietSelectedOption = 1;
-                  });
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (states) {
-                      if (states.contains(MaterialState.pressed) ||
-                          states.contains(MaterialState.selected)) {
-                        return const Color(0xFF76c893);
-                      } else if (isQuietSelectedOption == 1) {
+                          states.contains(MaterialState.selected) || allowsLargeDogs == 1) {
                         return const Color(0xFF76c893);
                       } else {
                         return Colors.grey;
@@ -252,16 +240,14 @@ class PetFriendlinessFormPageState extends State<PetFriendlinessFormPage> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    hasTreatsSelectedOption = 0;
+                    hasTreats = hasTreats = hasTreats == 0 ? -1 : 0;
                   });
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (states) {
                       if (states.contains(MaterialState.pressed) ||
-                          states.contains(MaterialState.selected)) {
-                        return const Color(0xFF76c893);
-                      } else if (hasTreatsSelectedOption == 0) {
+                          states.contains(MaterialState.selected) || hasTreats == 0) {
                         return const Color(0xFF76c893);
                       } else {
                         return Colors.grey;
@@ -276,16 +262,14 @@ class PetFriendlinessFormPageState extends State<PetFriendlinessFormPage> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    hasTreatsSelectedOption = 1;
+                    hasTreats = hasTreats = hasTreats == 1 ? -1 : 1;
                   });
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (states) {
                       if (states.contains(MaterialState.pressed) ||
-                          states.contains(MaterialState.selected)) {
-                        return const Color(0xFF76c893);
-                      } else if (hasTreatsSelectedOption == 1) {
+                          states.contains(MaterialState.selected) || hasTreats == 1) {
                         return const Color(0xFF76c893);
                       } else {
                         return Colors.grey;
