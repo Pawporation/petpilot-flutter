@@ -67,7 +67,7 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  _placeType = PlaceType.restaurnt;
+                  _placeType = PlaceType.restaurant;
                 });
                 widget.onPlaceTypeSelected(_placeType);
               },
