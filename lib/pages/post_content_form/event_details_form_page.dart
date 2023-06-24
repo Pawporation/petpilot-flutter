@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_places_flutter/google_places_flutter.dart';
-import 'package:google_places_flutter/model/prediction.dart';
+import 'package:petpilot/components/autocomplete_search.dart';
+import 'package:petpilot/models/place_model.dart';
 
 class EventDetailsFormPage extends StatefulWidget {
   final TextEditingController searchController;
-  const EventDetailsFormPage({Key? key, required this.searchController}) : super(key: key);
+  final Function(PlaceModel) onLocationSelected;
+  const EventDetailsFormPage({Key? key, required this.searchController, required this.onLocationSelected}) : super(key: key);
 
   @override
   EventDetailsFormPageState createState() => EventDetailsFormPageState();
@@ -96,36 +96,8 @@ class EventDetailsFormPageState extends State<EventDetailsFormPage> {
           ),
         ),
         const SizedBox(height: 5),
-        GooglePlaceAutoCompleteTextField(
-          textEditingController: widget.searchController,
-          googleAPIKey: "AIzaSyAnnFBx4GtRd6HTKw22KmiOqziWYlxOEv0",
-          inputDecoration: const InputDecoration(
-            hintText: 'Location',
-            hintStyle: TextStyle(color: Color(0xFF76c893)), // Change hint text color
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
-            prefixIcon: Icon(
-              Icons.search,
-              color: Color(0xFF76c893), // Change search icon color
-            ),
-          ),
-          debounceTime: 800,
-          //countries: ["us"],
-          isLatLngRequired: true,
-          getPlaceDetailWithLatLng: (Prediction prediction) {
-            double latitude = double.parse(prediction.lat!);
-            double longitude = double.parse(prediction.lng!);
-            LatLng location = LatLng(latitude, longitude);
-            //onLocationSelected(location); // Call the callback function with the selected location
-          },
-          itmClick: (Prediction prediction) {
-            widget.searchController.text = prediction.description!;
-
-            widget.searchController.selection = TextSelection.fromPosition(
-                TextPosition(offset: prediction.description!.length));
-          },
-          // default 600 ms ,
-        ),
+        AutoCompleteSearch(searchController: widget.searchController, onLocationSelected: widget.onLocationSelected, 
+        hintText: "Enter Location / Address", includeBorder: true),
         ElevatedButton(
           onPressed: () => _selectDate(context),
           style: ButtonStyle(

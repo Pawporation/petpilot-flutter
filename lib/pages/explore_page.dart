@@ -6,6 +6,7 @@ import 'package:petpilot/components/custom_search_bar.dart';
 import 'package:petpilot/components/custom_card.dart';
 import 'package:petpilot/components/filter_button.dart';
 import 'package:petpilot/db/firestore.dart';
+import 'package:petpilot/models/place_model.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -112,9 +113,9 @@ class ExplorePageState extends State<ExplorePage> {
     _itemScrollController.jumpTo(index: markerIndex);
   }
 
-  void _onLocationSelected(LatLng location) {
+  void _onLocationSelected(PlaceModel placeModel) {
     setState(() {
-      _focusedLocation = location;
+      _focusedLocation = placeModel.coords;
     });
     _mapController.animateCamera(
       CameraUpdate.newLatLng(_focusedLocation),
