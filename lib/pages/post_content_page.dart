@@ -5,6 +5,7 @@ import 'package:petpilot/pages/post_content_form/event_details_form_page.dart';
 import 'package:petpilot/pages/post_content_form/location_form_page.dart';
 import 'package:petpilot/pages/post_content_form/pet_friendliness_form_page.dart';
 import 'package:petpilot/pages/post_content_form/place_type_form_page.dart';
+import 'package:petpilot/models/place_model.dart';
 
 class PostContentPage extends StatefulWidget {
   const PostContentPage({Key? key}) : super(key: key);
@@ -52,11 +53,15 @@ class PostContentPageState extends State<PostContentPage> {
     });
   }
 
+  void _onLocationSelected(PlaceModel placeModel) {
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     var pages = [PlaceTypeFormPage(onPlaceTypeSelected: updatePlaceType), 
-    LocationFormPage(searchController: _searchController), const PetFriendlinessFormPage(),
-    EventDetailsFormPage(searchController: _eventLocationController,), const EventDescriptionFormPage()];
+    LocationFormPage(searchController: _searchController, onLocationSelected: _onLocationSelected,), const PetFriendlinessFormPage(),
+    EventDetailsFormPage(searchController: _eventLocationController, onLocationSelected: _onLocationSelected,), const EventDescriptionFormPage()];
     var children = placeType == PlaceType.event ? [pages[0], pages[3], pages[4]] : [pages[0], pages[1], pages[2]];
     return Dialog(
       backgroundColor: Colors.transparent,
