@@ -27,6 +27,7 @@ class ExplorePageState extends State<ExplorePage> {
 
   List<String> filters = [
     'restaurant',
+    'cafe',
     'event',
     'outdoor',
     'medical',
@@ -36,6 +37,7 @@ class ExplorePageState extends State<ExplorePage> {
   ];
   List<String> selectedFilters = [
     'restaurant',
+    'cafe',
     'event',
     'outdoor',
     'medical',
@@ -45,6 +47,7 @@ class ExplorePageState extends State<ExplorePage> {
   ];
   List<Color> filterColors = [
     Colors.red,
+    Colors.brown,
     Colors.deepPurple,
     Colors.green,
     Colors.blue,
