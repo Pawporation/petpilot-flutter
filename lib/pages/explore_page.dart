@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:petpilot/components/custom_search_bar.dart';
 import 'package:petpilot/components/custom_card.dart';
 import 'package:petpilot/components/filter_button.dart';
-import 'package:petpilot/db/firestore.dart';
+import 'package:petpilot/external/db/firestore.dart';
 import 'package:petpilot/models/place_model.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
