@@ -85,7 +85,30 @@ class PlaceTypeFormPageState extends State<PlaceTypeFormPage> {
                   },
                 ),
               ),
-              child: const Text('Restaurant / Cafe'),
+              child: const Text('Restaurant'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _placeType = PlaceType.cafe;
+                });
+                widget.onPlaceTypeSelected(_placeType);
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (states) {
+                    if (states.contains(MaterialState.pressed) ||
+                        states.contains(MaterialState.selected)) {
+                      return const Color(0xFF76c893);
+                    } else if (_placeType == PlaceType.cafe) {
+                      return const Color(0xFF76c893);
+                    } else {
+                      return Colors.grey;
+                    }
+                  },
+                ),
+              ),
+              child: const Text('Cafe'),
             ),
             ElevatedButton(
               onPressed: () {

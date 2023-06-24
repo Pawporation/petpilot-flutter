@@ -40,15 +40,17 @@ class FilterButton extends StatelessWidget {
     switch (filter.toLowerCase()) {
       case 'restaurant':
         return Icons.restaurant;
+      case'cafe':
+        return Icons.coffee;
       case 'event':
         return Icons.event;
       case 'outdoor':
-        return Icons.nature;
+        return Icons.hiking;
       case 'medical':
         return Icons.local_hospital;
       case 'grooming':
-        return Icons.pets;
-      case 'dog care':
+        return Icons.cut;
+      case 'dogcare':
         return Icons.pets;
       case 'store':
         return Icons.store;
